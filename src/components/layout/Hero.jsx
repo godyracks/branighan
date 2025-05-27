@@ -195,7 +195,7 @@ const Hero = ({ className }) => {
         </motion.div>
 
         <motion.div
-          className="mt-6 text-xs xs:text-sm sm:text-base font-medium text-text-light dark:text-text-dark flex justify-start gap-2"
+          className="mt-2 text-xs xs:text-sm sm:text-base font-medium text-text-light dark:text-text-dark flex justify-start gap-1"
           variants={itemVariants}
         >
           <motion.span className="inline-flex items-center gap-2">
