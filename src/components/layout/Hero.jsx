@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { LucideChevronDown, LucideHeart } from 'lucide-react';
 import Button from '../common/Button';
 import Input from '../common/Input';
-import SlidingCard from './SlidingCard'; 
+import SlidingCard from './SlidingCard';
 
 const PropertyCounter = () => {
   const controls = useAnimation();
@@ -65,11 +65,10 @@ const Hero = ({ className }) => {
     },
   ];
 
-  // Animation for sliding cards
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % properties.length);
-    }, 5000); // Change property every 5 seconds
+    }, 5000);
     return () => clearInterval(interval);
   }, [properties.length]);
 
@@ -118,7 +117,7 @@ const Hero = ({ className }) => {
 
   return (
     <section
-      className={`w-full flex flex-col items-center justify-center text-center min-h-[70vh] pt-[62px] py-12 sm:py-16 lg:pt-28 ${className}`}
+      className={`w-full flex flex-col items-center justify-center text-center min-h-[99vh] pt-[80px] sm:pt-[96px] py-12 sm:py-16 lg:pt-28 ${className}`}
       style={{
         background: isDarkMode
           ? `linear-gradient(135deg, rgba(31, 41, 55, 0.7), rgba(17, 24, 39, 0.7)), url('https://i.pinimg.com/736x/11/1e/b7/111eb70b83d4f7190ee0ec2ad27da56f.jpg') center/cover no-repeat`
@@ -195,7 +194,7 @@ const Hero = ({ className }) => {
         </motion.div>
 
         <motion.div
-          className="mt-2 text-xs xs:text-sm sm:text-base font-medium text-text-light dark:text-text-dark flex justify-start gap-1"
+          className="mt-6 text-xs xs:text-sm sm:text-base font-medium text-text-light dark:text-text-dark flex justify-start gap-2"
           variants={itemVariants}
         >
           <motion.span className="inline-flex items-center gap-2">
@@ -210,8 +209,7 @@ const Hero = ({ className }) => {
           </motion.span>
         </motion.div>
 
-        {/* Sliding cards */}
-        <motion.div className="mt-4 mb-12 w-[90%] mx-auto h-[150px] overflow-hidden">
+        <motion.div className="mt-4 mb-12 w-[90%] mx-auto h-[160px] sm:h-[170px] overflow-hidden relative z-20">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
