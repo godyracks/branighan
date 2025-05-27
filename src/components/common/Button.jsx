@@ -33,14 +33,14 @@ const Button = forwardRef(
 
     const variantStyles = {
       primary: isDarkMode
-        ? 'bg-primary text-text-dark hover:bg-primary/80 focus:ring-primary focus:ring-offset-background-dark'
-        : 'bg-primary text-text-dark hover:bg-primary/80 focus:ring-primary focus:ring-offset-background-light',
+        ? 'bg-accent-dark text-text-dark hover:bg-accent-dark/80 focus:ring-accent-dark focus:ring-offset-background-dark'
+        : 'bg-accent-light text-text-dark hover:bg-accent-soft focus:ring-accent-soft focus:ring-offset-background-light',
       secondary: isDarkMode
         ? 'bg-secondary text-text-dark hover:bg-secondary/80 focus:ring-secondary focus:ring-offset-background-dark'
         : 'bg-secondary text-text-dark hover:bg-secondary/80 focus:ring-secondary focus:ring-offset-background-light',
       outline: isDarkMode
-        ? 'bg-transparent border border-border-dark text-text-dark hover:bg-border-dark/10 focus:ring-border-dark focus:ring-offset-background-dark'
-        : 'bg-transparent border border-border-light text-text-light hover:bg-border-light/10 focus:ring-border-light focus:ring-offset-background-light',
+        ? 'bg-transparent border border-accent-dark text-contrast-dark hover:bg-border-dark/10 focus:ring-accent-dark focus:ring-offset-background-dark'
+        : 'bg-transparent border border-accent-light text-contrast-light hover:bg-border-light/10 focus:ring-accent-light focus:ring-offset-background-light',
       filters_primary: isDarkMode
         ? 'bg-accent-dark text-text-dark border-accent-dark hover:bg-accent-dark/80 focus:ring-accent-dark focus:ring-offset-background-dark'
         : 'bg-accent-light text-text-light border-accent-light hover:bg-accent-light/80 focus:ring-accent-light focus:ring-offset-background-light',
@@ -50,10 +50,10 @@ const Button = forwardRef(
           : 'bg-accent-light text-text-light border-accent-light hover:bg-accent-light/80 focus:ring-accent-light focus:ring-offset-background-light'
         : isDarkMode
         ? 'bg-transparent text-text-dark border-border-dark hover:bg-accent-dark/10 focus:ring-border-dark focus:ring-offset-background-dark'
-        : 'bg-transparent text-text-light border-border-light hover:bg-accent-light/10 focus:ring-border-light focus:ring-offset-background-light',
+        : 'bg-transparent text-text-light border-contrast-light hover:bg-accent-light/10 focus:ring-contrast-light focus:ring-offset-background-light',
       filters_outline: isDarkMode
         ? 'bg-transparent text-border-dark border-2 border-border-dark hover:bg-border-dark/10 hover:text-border-dark/80 focus:ring-border-dark focus:ring-offset-background-dark'
-        : 'bg-transparent text-border-light border-2 border-border-light hover:bg-border-light/10 hover:text-border-light/80 focus:ring-border-light focus:ring-offset-background-light',
+        : 'bg-transparent text-contrast-light border-2 border-contrast-light hover:bg-contrast-light/10 hover:text-contrast-light/80 focus:ring-contrast-light focus:ring-offset-background-light',
     }
 
     const buttonBreathVariants = {

@@ -163,7 +163,7 @@ const Footer = () => {
           variants={itemVariants}
         >
           <p className="text-sm text-text-light dark:text-text-dark">
-            © {currentYear} Branighan Group || Racks Softwares. All rights reserved.
+            © {currentYear} Branighan Group. All rights reserved.
           </p>
         </motion.div>
       </motion.div>

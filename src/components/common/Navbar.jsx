@@ -1,41 +1,33 @@
-import { Link } from 'react-router-dom'
-import { LucideMoon, LucideSun, LucideMenu, LucideX, LucideHome } from 'lucide-react'
-import { useTheme } from '../../context/ThemeContext'
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Button from './Button'
-import logoLight from '../../assets/images/lightmode.png'
-import logoDark from '../../assets/images/darkmode.png'
+import { Link } from 'react-router-dom';
+import { LucideMoon, LucideSun, LucideMenu, LucideX, LucideHome } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Button from './Button';
+import logoLight from '../../assets/images/lightmode.png';
+import logoDark from '../../assets/images/darkmode.png';
 
 const Navbar = () => {
-  const { isDarkMode, toggleTheme } = useTheme()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isBlurry, setIsBlurry] = useState(false)
+  const { isDarkMode, toggleTheme } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBlurry, setIsBlurry] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-  // Handle stickiness and blur effect on scroll
   useEffect(() => {
-    const navbar = document.querySelector('nav')
-    navbar.style.position = 'fixed'
-    navbar.style.top = '0'
-    navbar.style.left = '0'
-    navbar.style.width = '100%'
-    navbar.style.zIndex = '50'
-
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setIsBlurry(true)
+        setIsBlurry(true);
       } else {
-        setIsBlurry(false)
+        setIsBlurry(false);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { to: '/houses', label: 'Houses in Kenya' },
@@ -44,16 +36,18 @@ const Navbar = () => {
     { to: '/contact', label: 'Contact' },
     { to: '/blog', label: 'Blog' },
     { to: '/faqs', label: 'FAQs' },
-  ]
+  ];
 
   return (
     <nav
-      className={`py-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${isBlurry ? 'blurry' : ''}`}
+      className={`py-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 fixed top-0 left-0 w-full z-50 ${
+        isBlurry ? 'blurry' : ''
+      }`}
       style={{
         backgroundColor: isBlurry
           ? isDarkMode
-            ? 'rgba(31, 41, 55, 0.8)'
-            : 'rgba(249, 250, 251, 0.8)'
+            ? '#1F2937' // Solid background-dark
+            : '#F9FAFB' // Solid background-light
           : isDarkMode
           ? '#1F2937'
           : '#F9FAFB',
@@ -63,12 +57,12 @@ const Navbar = () => {
       <style>
         {`
           .blurry {
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
           }
-          @supports not (backdrop-filter: blur(8px)) {
+          @supports not (backdrop-filter: blur(4px)) {
             .blurry {
-              background-color: ${isDarkMode ? 'rgba(31, 41, 55, 0.9)' : 'rgba(249, 250, 251, 0.9)'};
+              background-color: ${isDarkMode ? '#1F2937' : '#F9FAFB'};
             }
           }
         `}
@@ -183,7 +177,6 @@ const Navbar = () => {
                     </Link>
                   </motion.div>
                 ))}
-                
                 <div className="h-4"></div>
                 <div className="h-4"></div>
                 <div className="h-4"></div>
@@ -192,8 +185,8 @@ const Navbar = () => {
                   size="sm"
                   className="w-full"
                   onClick={() => {
-                    console.log('Sign In clicked')
-                    toggleMenu()
+                    console.log('Sign In clicked');
+                    toggleMenu();
                   }}
                 >
                   Sign In
@@ -227,7 +220,7 @@ const Navbar = () => {
         />
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

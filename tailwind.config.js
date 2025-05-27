@@ -17,8 +17,9 @@ export default {
         'text-dark': '#F9FAFB',
         'border-light': '#E5E7EB',
         'border-dark': '#4B5563',
-        'accent-light': '#10B981',
-        'accent-dark': '#34D399',
+        'accent-light': '#D4A373', // Terracotta accent for light mode
+        'accent-dark': '#A66B4F', // Darker terracotta shade for dark mode
+        'accent-soft': '#E8C4A0', // Softer terracotta for highlights
       },
     },
     screens: {

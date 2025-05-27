@@ -47,23 +47,24 @@ const Input = forwardRef(({ placeholder = 'Search properties in Kenya...', ...pr
         ref={ref || inputRef}
         type="text"
         placeholder={placeholder}
-        className={`w-full pl-10 pr-4 py-2.5 rounded-full border text-sm sm:text-base transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary ${
+        className={`w-full pl-10 pr-4 py-2.5 rounded-full border text-sm sm:text-base transition-all duration-300 focus:outline-none focus:ring-2 ${
           isDarkMode
-            ? 'bg-background-dark border-border-dark text-text-dark placeholder-text-dark/60'
-            : 'bg-background-light border-border-light text-text-light placeholder-text-light/60'
+            ? 'bg-background-dark border-accent-dark text-text-dark placeholder-text-dark/60 focus:ring-accent-dark'
+            : 'bg-background-light border-accent-light text-text-light placeholder-text-light/60 focus:ring-accent-light'
         }`}
         variants={inputVariants}
         initial="rest"
         whileFocus="focus"
         onFocus={() => setIsFocused(true)}
         onBlur={() => {
-          // Delay to allow click on modal items
           setTimeout(() => {
             if (!wrapperRef.current.contains(document.activeElement)) {
               setIsFocused(false)
             }
           }, 100)
         }}
+        spellCheck="true"
+        autoCorrect="on"
         aria-label="Search properties by location, price, or type"
         {...props}
       />
