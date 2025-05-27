@@ -117,7 +117,7 @@ const Hero = ({ className }) => {
 
   return (
     <section
-      className={`w-full flex flex-col items-center justify-center text-center min-h-[99vh] pt-[80px] sm:pt-[96px] py-12 sm:py-16 lg:pt-28 ${className}`}
+      className={`w-full flex flex-col items-center justify-center text-center min-h-[79vh] pt-[80px] sm:pt-[96px] py-12 sm:py-16 lg:pt-28 ${className}`}
       style={{
         background: isDarkMode
           ? `linear-gradient(135deg, rgba(31, 41, 55, 0.7), rgba(17, 24, 39, 0.7)), url('https://i.pinimg.com/736x/11/1e/b7/111eb70b83d4f7190ee0ec2ad27da56f.jpg') center/cover no-repeat`
@@ -157,32 +157,32 @@ const Hero = ({ className }) => {
         </motion.p>
 
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-[95%] sm:w-auto mx-auto"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto mx-auto"
           variants={itemVariants}
         >
-          <Link to="/houses">
+          <Link to="/houses" className="w-full sm:w-auto">
             <Button
               variant="primary"
               size="lg"
-              className="w-full sm:w-auto min-w-[180px] xs:min-w-[200px] sm:min-w-[220px] bg-[#D4A373] hover:bg-[#c4975f] active:bg-[#b3834e] text-white"
+              className="w-full sm:min-w-[220px] bg-[#D4A373] hover:bg-[#c4975f] active:bg-[#b3834e] text-white"
             >
               Browse Homes
             </Button>
           </Link>
-          <Link to="/designs">
+          <Link to="/designs" className="w-full sm:w-auto">
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto min-w-[180px] xs:min-w-[200px] sm:min-w-[220px]"
+              className="w-full sm:min-w-[220px]"
             >
               View Designs
             </Button>
           </Link>
-          <Link to="/sell-your-house">
+          <Link to="/sell-your-house" className="w-full sm:w-auto">
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto min-w-[180px] xs:min-w-[200px] sm:min-w-[220px]"
+              className="w-full sm:min-w-[220px]"
             >
               Sell Your Property
             </Button>
