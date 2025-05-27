@@ -85,8 +85,8 @@ const Hero = ({ className }) => {
       className={`w-full flex flex-col items-center justify-center text-center min-h-[80vh] pt-[72px] py-12 sm:py-16 lg:pt-28 ${className}` }
       style={{
         background: isDarkMode
-          ? `linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9)), url('https://i.pinimg.com/736x/fd/ce/a2/fdcea242dd2e3ccb94e22611e129423b.jpg') center/cover no-repeat`
-          : `linear-gradient(135deg, rgba(249, 250, 251, 0.9), rgba(229, 231, 235, 0.9)), url('https://i.pinimg.com/736x/fd/ce/a2/fdcea242dd2e3ccb94e22611e129423b.jpg') center/cover no-repeat`,
+          ? `linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9)), url('https://i.pinimg.com/736x/65/19/b2/6519b25a5dbbe6387b0a7166bd777b9f.jpg') center/cover no-repeat`
+          : `linear-gradient(135deg, rgba(249, 250, 251, 0.9), rgba(229, 231, 235, 0.9)), url('https://i.pinimg.com/736x/65/19/b2/6519b25a5dbbe6387b0a7166bd777b9f.jpg') center/cover no-repeat`,
         color: isDarkMode ? '#F9FAFB' : '#1F2937',
         position: 'relative',
         overflow: 'hidden',
