@@ -1,0 +1,17 @@
+import Navbar from '../components/common/Navbar'
+import Footer from '../components/layout/Footer'
+import Hero from '../components/layout/Hero'
+
+const Home = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      <Navbar />
+      <div className="max-w-7xl mx-auto">
+        <Hero />
+      </div>
+      <Footer />
+    </div>
+  )
+}
+
+export default Home

@@ -1,80 +1,32 @@
 @import "tailwindcss";
 
+
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.6; /* Increased for more relaxed text spacing */
-  font-weight: 300; /* Lighter weight for softer look */
+  line-height: 1.6; 
+  font-weight: 300; 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.9); /* Slightly softer white */
-  background-color: #2a2a2a; /* Slightly lighter dark background */
+  color: rgba(255, 255, 255, 0.9); 
+  background-color: #2a2a2a; 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 400; /* Lighter for relaxed feel */
-  color: #7a7aff; /* Softer purple for links */
-  text-decoration: none;
-}
-a:hover {
-  color: #a1a1ff; /* Lighter hover color */
-}
 
-body {
-  margin: 0;
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  align-items: center; /* Center horizontally */
-  justify-content: flex-start; /* Start from top for more space */
-  min-width: 0; /* Remove min-width to prevent squeezing */
-  min-height: 100vh;
-  padding: 2rem; /* Add padding for breathing room */
-}
 
-h1 {
-  font-size: 2.5rem; /* Smaller, less aggressive */
-  line-height: 1.2; /* More relaxed line height */
-  font-weight: 500; /* Medium weight for balance */
-}
 
-button {
-  border-radius: 10px; /* Softer corners */
-  border: 1px solid transparent;
-  padding: 0.8rem 1.5rem; /* More padding for relaxed feel */
-  font-size: 1rem;
-  font-weight: 400; /* Lighter weight */
-  font-family: inherit;
-  background-color: #1e1e1e; /* Slightly lighter dark button */
-  cursor: pointer;
-  transition: all 0.3s ease; /* Smoother transition */
-}
-button:hover {
-  border-color: #7a7aff; /* Match link color */
-  background-color: #2a2a2a; /* Subtle hover effect */
-}
-button:focus,
-button:focus-visible {
-  outline: 3px solid #7a7aff; /* Softer focus ring */
-  outline-offset: 2px;
-}
+
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #2c3e50; /* Softer dark color */
     background-color: #f5f5f5; /* Light, airy background */
   }
-  a:hover {
-    color: #8e99ff; /* Lighter hover for light mode */
-  }
-  button {
-    background-color: #ffffff; /* Clean white button */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  button:hover {
-    background-color: #e6e6e6; /* Gentle hover effect */
-  }
+ 
 }
 
 /* Custom animation for React logo spin */
