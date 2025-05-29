@@ -1,0 +1,17 @@
+:root {
+  --navbar-bg-dark: #1F2937;
+  --navbar-bg-light: #F9FAFB;
+  --text-dark: #F9FAFB;
+  --text-light: #1F2937;
+}
+
+.blurry {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+@supports not (backdrop-filter: blur(4px)) {
+  .blurry {
+    background-color: var(--navbar-bg);
+  }
+}
