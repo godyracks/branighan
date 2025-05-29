@@ -1,119 +1,76 @@
 import { useTheme } from '../../context/ThemeContext';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { LucideChevronDown, LucideHeart } from 'lucide-react';
+import PropTypes from 'prop-types';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import SlidingCard from './SlidingCard';
+import { usePropertySlideshow } from '../../hooks/usePropertySlideshow';
+import { useScrollToSection } from '../../hooks/useScrollToSection';
+import { containerVariants, itemVariants, scrollPromptVariants, heartVariants, slideVariants } from '../../animations/heroAnimations';
 
-const PropertyCounter = () => {
-  const controls = useAnimation();
+// Default properties (can be overridden via props)
+const defaultProperties = [
+  {
+    name: 'Luxury Villa in Nairobi',
+    image: 'https://i.pinimg.com/736x/65/19/b2/6519b25a5dbbe6387b0a7166bd777b9f.jpg',
+    location: 'Karen, Nairobi',
+    description: '4BR villa with modern finishes and private garden.',
+  },
+  {
+    name: 'Beachfront Home in Mombasa',
+    image: 'https://i.pinimg.com/736x/25/30/43/253043c53e1104838cf001a28452a543.jpg',
+    location: 'Nyali, Mombasa',
+    description: '3BR home with ocean view and swimming pool.',
+  },
+  {
+    name: 'Apartment in Westlands',
+    image: 'https://i.pinimg.com/736x/65/19/b2/6519b25a5dbbe6387b0a7166bd777b9f.jpg',
+    location: 'Westlands, Nairobi',
+    description: '2BR minimalist apartment with city view.',
+  },
+  {
+    name: 'Family House in Kisumu',
+    image: 'https://i.pinimg.com/736x/25/30/43/253043c53e1104838cf001a28452a543.jpg',
+    location: 'Milimani, Kisumu',
+    description: 'Spacious 5BR house ideal for large families.',
+  },
+];
 
-  useEffect(() => {
-    controls.start({
-      width: '100%',
-      transition: { duration: 2, ease: 'easeOut' },
-    });
-  }, [controls]);
-
-  return (
-    <div className="flex items-center justify-center space-x-3 mt-6 sm:mt-8">
-      <motion.div
-        className="h-1.5 bg-border-light dark:bg-border-dark rounded-full overflow-hidden"
-        initial={{ width: 0 }}
-        animate={controls}
-      >
-        <div className="h-full bg-gradient-to-r from-accent-light to-accent-dark" />
-      </motion.div>
-      <span className="text-[11px] italic font-medium text-text-light dark:text-text-dark">
-        500+ Premium Properties
-      </span>
-    </div>
-  );
-};
-
-const Hero = ({ className }) => {
+const Hero = ({
+  className,
+  properties = defaultProperties,
+  title = 'Discover Premium Modern Homes',
+  description = 'Explore minimalist, luxury properties across Kenya',
+  searchPlaceholder = 'Search properties...',
+  buttons = [
+    {
+      to: '/houses',
+      variant: 'primary',
+      size: 'lg',
+      className: 'w-full sm:min-w-[220px] bg-[#D4A373] hover:bg-[#c4975f] active:bg-[#b3834e] text-white',
+      label: 'Browse Homes',
+    },
+    {
+      to: '/designs',
+      variant: 'outline',
+      size: 'lg',
+      className: 'w-full sm:min-w-[220px]',
+      label: 'View Designs',
+    },
+    {
+      to: '/sell-your-house',
+      variant: 'outline',
+      size: 'lg',
+      className: 'w-full sm:min-w-[220px]',
+      label: 'Sell Your Property',
+    },
+  ],
+}) => {
   const { isDarkMode } = useTheme();
-  const controls = useAnimation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const properties = [
-    {
-      name: 'Luxury Villa in Nairobi',
-      image: 'https://i.pinimg.com/736x/65/19/b2/6519b25a5dbbe6387b0a7166bd777b9f.jpg',
-      location: 'Karen, Nairobi',
-      description: '4BR villa with modern finishes and private garden.',
-    },
-    {
-      name: 'Beachfront Home in Mombasa',
-      image: 'https://i.pinimg.com/736x/25/30/43/253043c53e1104838cf001a28452a543.jpg',
-      location: 'Nyali, Mombasa',
-      description: '3BR home with ocean view and swimming pool.',
-    },
-    {
-      name: 'Apartment in Westlands',
-      image: 'https://i.pinimg.com/736x/65/19/b2/6519b25a5dbbe6387b0a7166bd777b9f.jpg',
-      location: 'Westlands, Nairobi',
-      description: '2BR minimalist apartment with city view.',
-    },
-    {
-      name: 'Family House in Kisumu',
-      image: 'https://i.pinimg.com/736x/25/30/43/253043c53e1104838cf001a28452a543.jpg',
-      location: 'Milimani, Kisumu',
-      description: 'Spacious 5BR house ideal for large families.',
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % properties.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [properties.length]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-  };
-
-  const scrollPromptVariants = {
-    animate: {
-      y: [0, 12, 0],
-      transition: { repeat: Infinity, duration: 1.5, ease: 'easeInOut' },
-    },
-  };
-
-  const heartVariants = {
-    animate: {
-      rotate: [-10, 10, -10],
-      transition: { repeat: Infinity, duration: 1.2, ease: 'easeInOut' },
-    },
-  };
-
-  const slideVariants = {
-    initial: { x: '100%' },
-    animate: { x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-    exit: { x: '-100%', transition: { duration: 0.5, ease: 'easeOut' } },
-  };
-
-  const handleScrollDown = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
-  };
+  const { currentIndex, currentProperty } = usePropertySlideshow(properties);
+  const scrollToSection = useScrollToSection();
 
   return (
     <section
@@ -134,7 +91,7 @@ const Hero = ({ className }) => {
         animate="visible"
       >
         <motion.div className="mb-6 sm:mb-8" variants={itemVariants}>
-          <Input placeholder="Search properties..." />
+          <Input placeholder={searchPlaceholder} />
         </motion.div>
 
         <motion.h1
@@ -146,51 +103,31 @@ const Hero = ({ className }) => {
           }}
           variants={itemVariants}
         >
-          Discover Premium Modern Homes
+          {title}
         </motion.h1>
 
         <motion.p
           className="text-sm xs:text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-text-light dark:text-text-dark max-w-2xl mx-auto"
           variants={itemVariants}
         >
-          Explore minimalist, luxury properties across Kenya
+          {description}
         </motion.p>
 
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto mx-auto"
           variants={itemVariants}
         >
-          <Link to="/houses" className="w-full sm:w-auto">
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full sm:min-w-[220px] bg-[#D4A373] hover:bg-[#c4975f] active:bg-[#b3834e] text-white"
-            >
-              Browse Homes
-            </Button>
-          </Link>
-          <Link to="/designs" className="w-full sm:w-auto">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:min-w-[220px]"
-            >
-              View Designs
-            </Button>
-          </Link>
-          <Link to="/sell-your-house" className="w-full sm:w-auto">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:min-w-[220px]"
-            >
-              Sell Your Property
-            </Button>
-          </Link>
-        </motion.div>
-
-        <motion.div variants={itemVariants}>
-          <PropertyCounter />
+          {buttons.map((btn, index) => (
+            <Link key={index} to={btn.to} className="w-full sm:w-auto">
+              <Button
+                variant={btn.variant}
+                size={btn.size}
+                className={btn.className}
+              >
+                {btn.label}
+              </Button>
+            </Link>
+          ))}
         </motion.div>
 
         <motion.div
@@ -218,7 +155,7 @@ const Hero = ({ className }) => {
               animate="animate"
               exit="exit"
             >
-              <SlidingCard property={properties[currentIndex]} />
+              <SlidingCard property={currentProperty} />
             </motion.div>
           </AnimatePresence>
         </motion.div>
@@ -227,7 +164,7 @@ const Hero = ({ className }) => {
           className="absolute bottom-4 left-1/2 transform -translate-x-1/2 cursor-pointer"
           variants={scrollPromptVariants}
           animate="animate"
-          onClick={handleScrollDown}
+          onClick={scrollToSection}
         >
           <LucideChevronDown
             className={`h-8 w-8 ${isDarkMode ? 'text-text-dark' : 'text-text-light'}`}
@@ -236,6 +173,30 @@ const Hero = ({ className }) => {
       </motion.div>
     </section>
   );
+};
+
+Hero.propTypes = {
+  className: PropTypes.string,
+  properties: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    })
+  ),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  searchPlaceholder: PropTypes.string,
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      to: PropTypes.string.isRequired,
+      variant: PropTypes.string,
+      size: PropTypes.string,
+      className: PropTypes.string,
+      label: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Hero;
