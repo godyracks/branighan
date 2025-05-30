@@ -90,9 +90,9 @@ const Hero = ({
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="mb-6 sm:mb-8" variants={itemVariants}>
+        {/* <motion.div className="mb-6 sm:mb-8" variants={itemVariants}>
           <Input placeholder={searchPlaceholder} />
-        </motion.div>
+        </motion.div> */}
 
         <motion.h1
           className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight bg-clip-text text-transparent"
