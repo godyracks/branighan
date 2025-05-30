@@ -1,11 +1,10 @@
-
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { LucideX, LucideHome, LucideMoon, LucideSun } from 'lucide-react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
 
-export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme, logo }) => (
+export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme, logo, onSignIn, showSignIn, animations }) => (
   <>
     <motion.div
       className="fixed inset-y-0 right-0 w-4/5 max-w-xs shadow-xl z-50"
@@ -49,20 +48,19 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
               </Link>
             </motion.div>
           ))}
-          <div className="h-4" />
-          <div className="h-4" />
-          <div className="h-4" />
-          <Button
-            variant="primary"
-            size="sm"
-            className="w-full"
-            onClick={() => {
-              console.log('Sign In clicked');
-              onClose();
-            }}
-          >
-            Sign In
-          </Button>
+          {showSignIn && (
+            <Button
+              variant="primary"
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                onSignIn();
+                onClose();
+              }}
+            >
+              Sign In
+            </Button>
+          )}
         </div>
         <div className="p-6 pt-0 border-t border-border-light dark:border-border-dark">
           <button
@@ -101,4 +99,7 @@ MobileMenu.propTypes = {
   isDarkMode: PropTypes.bool.isRequired,
   toggleTheme: PropTypes.func.isRequired,
   logo: PropTypes.string.isRequired,
+  onSignIn: PropTypes.func,
+  showSignIn: PropTypes.bool.isRequired,
+  animations: PropTypes.object.isRequired,
 };

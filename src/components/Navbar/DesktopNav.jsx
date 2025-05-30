@@ -2,8 +2,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { LucideMoon, LucideSun } from 'lucide-react';
 import PropTypes from 'prop-types';
+import Button from '../common/Button';
 
-export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations }) => (
+export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations, onSignIn }) => (
   <div className="hidden sm:flex sm:items-center sm:space-x-6 lg:space-x-8 ml-auto">
     {navItems.map((item) => (
       <motion.div key={item.to} whileHover={animations.hover}>
@@ -15,6 +16,18 @@ export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations }) =>
         </Link>
       </motion.div>
     ))}
+    {onSignIn && (
+      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={onSignIn}
+          className="text-base font-medium"
+        >
+          Sign In
+        </Button>
+      </motion.div>
+    )}
     <motion.div
       onClick={toggleTheme}
       className={`p-2 cursor-pointer ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
@@ -28,7 +41,7 @@ export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations }) =>
 );
 
 DesktopNav.propTypes = {
-  navItems: PropTypes.arrayOf(
+  navItems : PropTypes.arrayOf(
     PropTypes.shape({
       to: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
@@ -37,4 +50,5 @@ DesktopNav.propTypes = {
   isDarkMode: PropTypes.bool.isRequired,
   toggleTheme: PropTypes.func.isRequired,
   animations: PropTypes.object.isRequired,
+  onSignIn: PropTypes.func,
 };

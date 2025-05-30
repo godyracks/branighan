@@ -3,15 +3,19 @@
   --navbar-bg-light: #F9FAFB;
   --text-dark: #F9FAFB;
   --text-light: #1F2937;
+  --border-dark: #374151;
+  --border-light: #D1D5DB;
+  --primary: #2563EB;
+  --secondary: #FBBF24;
 }
 
-.blurry {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+.dark {
+  --navbar-bg: var(--navbar-bg-dark);
+  --text: var(--text-dark);
+  --border: var(--border-dark);
 }
 
-@supports not (backdrop-filter: blur(4px)) {
-  .blurry {
-    background-color: var(--navbar-bg);
-  }
+body {
+  background-color: var(--navbar-bg);
+  color: var(--text);
 }

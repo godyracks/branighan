@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
-import { LucideMoon, LucideSun, LucideMenu, LucideX, LucideHome } from 'lucide-react';
+import { LucideMenu, LucideX } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
-import Button from './Button';
-import { useNavbarBlur } from '../../hooks/useNavbarBlur';
-import { useNavbarAnimations } from '../../hooks/useNavbarAnimations';
 import { DesktopNav } from '../Navbar/DesktopNav';
 import { MobileMenu } from '../Navbar/MobileMenu';
 import styles from '../Navbar/Navbar.module.css';
@@ -26,23 +23,21 @@ const Navbar = ({
   logoLight = '../../assets/images/lightmode.png',
   logoDark = '/path/to/darkmode.png',
   onSignIn,
-  blurStyles = styles.blurry,
 }) => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isBlurry = useNavbarBlur();
-  const animations = useNavbarAnimations();
+  const animations = {
+    hover: { scale: 1.05, transition: { duration: 0.2 } },
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const logo = isDarkMode ? logoDark : logoLight;
 
   return (
     <nav
-      className={`py-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 fixed top-0 left-0 w-full z-50 ${isBlurry ? blurStyles : ''}`}
+      className="py-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 fixed top-0 left-0 w-full z-50"
       style={{
-        backgroundColor: isBlurry
-          ? `var(--navbar-bg-${isDarkMode ? 'dark' : 'light'})`
-          : `var(--navbar-bg-${isDarkMode ? 'dark' : 'light'})`,
+        backgroundColor: `var(--navbar-bg-${isDarkMode ? 'dark' : 'light'})`,
         color: `var(--text-${isDarkMode ? 'dark' : 'light'})`,
       }}
     >
@@ -50,7 +45,13 @@ const Navbar = ({
         <Link to="/" className="flex items-center">
           <img src={logo} alt="Logo" className="h-8 w-auto sm:h-10" />
         </Link>
-        <DesktopNav navItems={navItems} isDarkMode={isDarkMode} animations={animations} />
+        <DesktopNav
+          navItems={navItems}
+          isDarkMode={isDarkMode}
+          toggleTheme={toggleTheme}
+          animations={animations}
+          onSignIn={onSignIn}
+        />
         <motion.button
           onClick={toggleMenu}
           className={`p-2 sm:hidden ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
@@ -90,7 +91,6 @@ Navbar.propTypes = {
   logoLight: PropTypes.string.isRequired,
   logoDark: PropTypes.string.isRequired,
   onSignIn: PropTypes.func,
-  blurStyles: PropTypes.string,
 };
 
 export default Navbar;
