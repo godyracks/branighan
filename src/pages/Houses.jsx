@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
-import  Navbar  from '../components/common/Navbar';
-import  Footer  from '../components/layout/Footer';
-
+import { useState } from 'react';
+import Navbar from '../components/common/Navbar';
+import { Link } from 'react-router-dom';
+import Footer from '../components/layout/Footer';
 import { HouseFilter } from '../components/layout/HouseFilter';
 import { HouseList } from '../components/layout/HouseList';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 // Mock house data with images
 const houseImages = [
@@ -27,6 +28,7 @@ const mockHouses = Array.from({ length: 25 }, (_, i) => ({
 
 // Houses manages layout and coordination
 const Houses = () => {
+  const { isDarkMode } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ priceRange: '', location: '', category: '' });
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,20 +54,36 @@ const Houses = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-8 mt-12">
-       
-        <div className="flex flex-col lg:flex-row gap-8">
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Left Sidebar (Search, Filters, Breadcrumb) */}
           <div className="w-full lg:w-1/4 space-y-6">
-            <nav className="text-sm text-text-light dark:text-text-dark" aria-label="Breadcrumb">
-              <ol className="list-none p-0 flex space-x-2">
-                <li><a href="/" className="hover:text-primary">Home</a></li>
-                <li><span> &gt; </span></li>
-                <li><a href="/houses" className="hover:text-primary">Houses in Kenya</a></li>
-                <li><span> &gt; </span></li>
-                <li>Available</li>
+            <nav className="text-sm font-medium" aria-label="Breadcrumb">
+              <ol className="list-none p-0 flex items-center space-x-2">
+                <li>
+                  <Link to="/" className="text-text-light dark:text-text-dark hover:text-primary transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <span className="text-gray-500 dark:text-gray-400"></span>
+                </li>
+                <li>
+                  <Link to="/houses" className="text-text-light dark:text-text-dark hover:text-primary transition-colors">
+                    Houses in Kenya
+                  </Link>
+                </li>
+                <li>
+                  <span className="text-gray-500 dark:text-gray-400"></span>
+                </li>
+                <li className="text-gray-500 dark:text-gray-400">Available</li>
               </ol>
             </nav>
             <HouseFilter onSearch={setSearchTerm} onFilter={setFilters} />
@@ -83,7 +101,7 @@ const Houses = () => {
             />
           </div>
         </div>
-      </div>
+      </motion.div>
       <Footer />
     </div>
   );

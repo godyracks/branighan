@@ -8,38 +8,85 @@ import { useTheme } from '../../context/ThemeContext';
 export const HouseCard = ({ image, title, location, price, amenities, onWhatsApp, onCall }) => {
   const { isDarkMode } = useTheme();
 
+  const whatsappHover = {
+    whileHover: { scale: 1.05, backgroundColor: '#16A34A' }, // Green-600
+    transition: { duration: 0.2 },
+  };
+
+  const callHover = {
+    whileHover: { scale: 1.05, backgroundColor: isDarkMode ? '#CCCCCC' : '#333333' },
+    transition: { duration: 0.2 },
+  };
+
   return (
     <motion.div
-      className="border border-border-light dark:border-border-dark rounded-lg shadow-md overflow-hidden bg-card-light dark:bg-card-dark transition-all duration-300"
+      className="border border-border-light dark:border-border-dark rounded-lg shadow-md overflow-hidden transition-all duration-300"
+      style={{
+        backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
+      }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
     >
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
-      <div className="p-4 flex flex-col">
-        <h3 className="text-lg font-semibold text-text-light dark:text-text-dark truncate">{title}</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400">{location}</p>
-        <p className="text-base font-medium text-text-light dark:text-text-dark mt-2">KSh {price.toLocaleString()}</p>
+      <img src={image} alt={title} className="w-full h-48 object-cover aspect-[4/3]" />
+      <div className="p-4 flex flex-col min-h-[calc(100%-12rem)]">
+        <h3
+          className="text-lg font-semibold truncate"
+          style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+        >
+          {title}
+        </h3>
+        <p
+          className="text-sm text-gray-600 dark:text-gray-400"
+          style={{ color: isDarkMode ? '#9CA3AF' : '#4B5563' }}
+        >
+          {location}
+        </p>
+        <p
+          className="text-base font-medium mt-2"
+          style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+        >
+          KSh {price.toLocaleString()}
+        </p>
         <div className="flex space-x-2 mt-2">
-          <span className="flex items-center text-text-light dark:text-text-dark"><FaBed />{amenities.beds}</span>
-          <span className="flex items-center text-text-light dark:text-text-dark"><FaBath />{amenities.baths}</span>
-          <span className="flex items-center text-text-light dark:text-text-dark"><FaCar />{amenities.garages}</span>
+          <span
+            className="flex items-center"
+            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+          >
+            <FaBed />{amenities.beds}
+          </span>
+          <span
+            className="flex items-center"
+            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+          >
+            <FaBath />{amenities.baths}
+          </span>
+          <span
+            className="flex items-center"
+            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+          >
+            <FaCar />{amenities.garages}
+          </span>
         </div>
         <div className="mt-4 flex space-x-2">
-          <button
+          <motion.button
             onClick={onWhatsApp}
-            className="flex-1 bg-green-500 text-white py-2 px-2 rounded hover:bg-green-600 transition-colors"
+            className="flex-1 text-white py-2 px-2 rounded transition-colors"
+            style={{ backgroundColor: '#22C55E' }} // Green-500
             aria-label={`Enquire about ${title} via WhatsApp`}
+            {...whatsappHover}
           >
             <FaWhatsapp className="inline mr-1" /> WhatsApp
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={onCall}
-            className="flex-1 bg-blue-500 text-white py-2 px-2 rounded hover:bg-blue-600 transition-colors"
+            className="flex-1 text-white py-2 px-2 rounded transition-colors"
+            style={{ backgroundColor: isDarkMode ? '#FFFFFF' : '#000000', color: isDarkMode ? '#000000' : '#FFFFFF' }}
             aria-label={`Call about ${title}`}
+            {...callHover}
           >
-            <Phone className="inline mr-1 text-white" /> Call
-          </button>
+            <Phone className="inline mr-1" /> Call
+          </motion.button>
         </div>
       </div>
     </motion.div>
