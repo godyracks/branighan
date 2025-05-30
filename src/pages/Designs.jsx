@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
@@ -10,19 +10,110 @@ import { useTheme } from '../context/ThemeContext';
 
 // Mock design data with images
 const designImages = [
-  'https://i.pinimg.com/736x/aa/0b/dd/aa0bdd89566dee443fe6d3d67c50f356.jpg',
-  'https://i.pinimg.com/736x/20/89/b2/2089b28a7eb5eb6871c568f1806413e8.jpg',
-  'https://i.pinimg.com/736x/c3/36/ff/c336ff2ecaa23df9cec443da67245508.jpg',
-  'https://i.pinimg.com/736x/58/76/f5/5876f5a04bd3c8dcd0121ffcab815769.jpg',
+  'https://i.pinimg.com/736x/aa/0b/dd/aa0bdd89566dee443fe6d3d67c50f356.jpg', // Contemporary style
+  'https://i.pinimg.com/736x/20/89/b2/2089b28a7eb5eb6871c568f1806413e8.jpg', // Traditional style
+  'https://i.pinimg.com/736x/c3/36/ff/c336ff2ecaa23df9cec443da67245508.jpg', // Minimalist style
+  'https://i.pinimg.com/736x/58/76/f5/5876f5a04bd3c8dcd0121ffcab815769.jpg', // Eco-Friendly style
 ];
 
-const mockDesigns = Array.from({ length: 25 }, (_, i) => ({
-  id: i + 1,
-  image: designImages[i % designImages.length],
-  name: `Design ${i + 1}`,
-  category: `Category ${i % 3 + 1}`,
-  amenities: { beds: 2 + i % 3, baths: 1 + i % 2, garages: i % 2, garage: i % 2 === 0, security: i % 3 === 0 },
-}));
+// Design categories
+const designCategories = ['Contemporary', 'Traditional', 'Minimalist', 'Eco-Friendly'];
+
+// Map categories to designImages
+const imageMap = {
+  Contemporary: designImages[0],
+  Traditional: designImages[1],
+  Minimalist: designImages[2],
+  'Eco-Friendly': designImages[3],
+};
+
+// Creative design data (12 designs)
+const mockDesigns = [
+  {
+    id: 1,
+    image: imageMap.Contemporary,
+    name: 'Serenity Layout',
+    category: 'Contemporary',
+    amenities: { beds: 3, baths: 2, garages: 1, garage: true, security: true, pool: false },
+  },
+  {
+    id: 2,
+    image: imageMap.Traditional,
+    name: 'Heritage Haven',
+    category: 'Traditional',
+    amenities: { beds: 4, baths: 3, garages: 2, garage: true, security: false, pool: true },
+  },
+  {
+    id: 3,
+    image: imageMap.Minimalist,
+    name: 'Zen Retreat',
+    category: 'Minimalist',
+    amenities: { beds: 2, baths: 1, garages: 0, garage: false, security: true, pool: false },
+  },
+  {
+    id: 4,
+    image: imageMap['Eco-Friendly'],
+    name: 'Green Oasis',
+    category: 'Eco-Friendly',
+    amenities: { beds: 3, baths: 2, garages: 1, garage: true, security: false, pool: false },
+  },
+  {
+    id: 5,
+    image: imageMap.Contemporary,
+    name: 'Urban Elegance',
+    category: 'Contemporary',
+    amenities: { beds: 3, baths: 2, garages: 1, garage: true, security: true, pool: true },
+  },
+  {
+    id: 6,
+    image: imageMap.Traditional,
+    name: 'Classic Abode',
+    category: 'Traditional',
+    amenities: { beds: 5, baths: 4, garages: 2, garage: true, security: true, pool: false },
+  },
+  {
+    id: 7,
+    image: imageMap.Minimalist,
+    name: 'Sleek Sanctuary',
+    category: 'Minimalist',
+    amenities: { beds: 2, baths: 1, garages: 0, garage: false, security: false, pool: false },
+  },
+  {
+    id: 8,
+    image: imageMap['Eco-Friendly'],
+    name: 'Eco Harmony',
+    category: 'Eco-Friendly',
+    amenities: { beds: 4, baths: 3, garages: 1, garage: true, security: true, pool: true },
+  },
+  {
+    id: 9,
+    image: imageMap.Contemporary,
+    name: 'Modern Vista',
+    category: 'Contemporary',
+    amenities: { beds: 3, baths: 2, garages: 1, garage: true, security: true, pool: false },
+  },
+  {
+    id: 10,
+    image: imageMap.Traditional,
+    name: 'Timeless Estate',
+    category: 'Traditional',
+    amenities: { beds: 4, baths: 3, garages: 2, garage: true, security: false, pool: true },
+  },
+  {
+    id: 11,
+    image: imageMap.Minimalist,
+    name: 'Pure Simplicity',
+    category: 'Minimalist',
+    amenities: { beds: 2, baths: 1, garages: 0, garage: false, security: true, pool: false },
+  },
+  {
+    id: 12,
+    image: imageMap['Eco-Friendly'],
+    name: 'Sustainable Haven',
+    category: 'Eco-Friendly',
+    amenities: { beds: 3, baths: 2, garages: 1, garage: true, security: true, pool: false },
+  },
+];
 
 // Designs manages layout and coordination
 const Designs = () => {
@@ -30,15 +121,34 @@ const Designs = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ category: '' });
   const [currentPage, setCurrentPage] = useState(1);
-  const designsPerPage = 10;
+  const designsPerPage = 6;
 
   const filteredDesigns = mockDesigns.filter(design =>
     design.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (!filters.category || design.category.toLowerCase().includes(filters.category.toLowerCase()))
   );
 
-  const totalPages = Math.ceil(filteredDesigns.length / designsPerPage);
-  const paginatedDesigns = filteredDesigns.slice((currentPage - 1) * designsPerPage, currentPage * designsPerPage);
+  const totalPages = Math.max(1, Math.ceil(filteredDesigns.length / designsPerPage));
+
+  // Reset currentPage when filters or search change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, filters]);
+
+  // Handle page change with bounds checking
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const paginatedDesigns = filteredDesigns.slice(
+    (currentPage - 1) * designsPerPage,
+    currentPage * designsPerPage
+  );
+
+  // Debug pagination state
+  console.log('currentPage:', currentPage, 'totalPages:', totalPages, 'paginatedDesigns:', paginatedDesigns);
 
   const handleWhatsApp = (design) => {
     const message = `Interested in ${design.name} (${design.category})`;
@@ -46,7 +156,7 @@ const Designs = () => {
   };
 
   const handleCall = () => {
-    window.location.href = `tel:+254704221777`;
+    window.location.href = 'tel:+254704221777';
   };
 
   return (
@@ -104,7 +214,7 @@ const Designs = () => {
               designs={paginatedDesigns}
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
               onWhatsApp={handleWhatsApp}
               onCall={handleCall}
             />
@@ -116,8 +226,6 @@ const Designs = () => {
   );
 };
 
-Designs.propTypes = {
-  // No props are directly passed to Designs, but adding PropTypes for consistency
-};
+Designs.propTypes = {};
 
 export default Designs;
