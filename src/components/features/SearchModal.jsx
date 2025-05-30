@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LucideEye } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 // SearchModal displays real-time search results
 export const SearchModal = ({ searchTerm, houses, onView }) => {
+  const { isDarkMode } = useTheme();
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -22,20 +24,44 @@ export const SearchModal = ({ searchTerm, houses, onView }) => {
 
   return (
     <motion.div
-      className="absolute z-50 w-full max-h-64 overflow-y-auto bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark rounded-md shadow-lg mt-1"
+      className="absolute z-50 w-full max-h-64 overflow-y-auto rounded-md shadow-lg mt-1 border"
+      style={{
+        backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
+        borderColor: isDarkMode ? '#4B5563' : '#E5E7EB',
+      }}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3 }}
     >
       {results.map(house => (
-        <div key={house.id} className="flex items-center p-2 hover:bg-accent-soft dark:hover:bg-accent-dark cursor-pointer">
-          <img src={house.image} alt={house.title} className="w-12 h-12 object-cover mr-2" />
+        <div
+          key={house.id}
+          className="flex items-center p-2 hover:transition-colors duration-300 cursor-pointer"
+          style={{ backgroundColor: isDarkMode ? '#374151' : '#FFFFFF', ':hover': { backgroundColor: isDarkMode ? '#A66B4F' : '#E8C4A0' } }}
+        >
+          <img src={house.image} alt={house.title} className="w-12 h-12 object-cover rounded-md mr-2" />
           <div>
-            <p className="text-sm text-text-light dark:text-text-dark">{house.title}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400">{house.location}</p>
+            <p
+              className="text-sm"
+              style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+            >
+              {house.title}
+            </p>
+            <p
+              className="text-xs"
+              style={{ color: isDarkMode ? '#9CA3AF' : '#4B5563' }}
+            >
+              {house.location}
+            </p>
           </div>
-          <button onClick={() => onView(house)} className="ml-auto text-primary">
-            <LucideEye />
+          <button
+            onClick={() => onView(house)}
+            className="ml-auto"
+            style={{ color: '#1E40AF' }}
+            aria-label={`View ${house.title}`}
+          >
+            <LucideEye className="h-5 w-5" />
           </button>
         </div>
       ))}

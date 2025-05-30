@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Navbar from '../components/common/Navbar';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
+import Navbar from '../components/common/Navbar';
 import Footer from '../components/layout/Footer';
 import { HouseFilter } from '../components/layout/HouseFilter';
 import { HouseList } from '../components/layout/HouseList';
-import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
 // Mock house data with images
@@ -17,13 +18,14 @@ const houseImages = [
   'https://i.pinimg.com/736x/fb/66/cc/fb66ccac2488f97f009c0d406edf7db4.jpg', // Farmhouse
   'https://i.pinimg.com/736x/b8/11/73/b81173f28eac00bb31e9939b9f27323a.jpg', // Cottage
 ];
+
 const mockHouses = Array.from({ length: 25 }, (_, i) => ({
   id: i + 1,
   image: houseImages[i % houseImages.length],
   title: `House ${i + 1}`,
   location: `Location ${i + 1}`,
   price: 500000 + i * 100000,
-  amenities: { beds: 2 + i % 3, baths: 1 + i % 2, garages: i % 2 },
+  amenities: { beds: 2 + i % 3, baths: 1 + i % 2, garages: i % 2, garage: i % 2 === 0, security: i % 3 === 0, pool: i % 4 === 0 },
 }));
 
 // Houses manages layout and coordination
@@ -49,17 +51,20 @@ const Houses = () => {
     window.open(`https://wa.me/254704221777?text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  const handleCall = (house) => {
+  const handleCall = () => {
     window.location.href = `tel:+254704221777`;
   };
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: isDarkMode ? '#1F2937' : '#F9FAFB' }}
+    >
       <Navbar />
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
@@ -68,22 +73,32 @@ const Houses = () => {
             <nav className="text-sm font-medium" aria-label="Breadcrumb">
               <ol className="list-none p-0 flex items-center space-x-2">
                 <li>
-                  <Link to="/" className="text-text-light dark:text-text-dark hover:text-primary transition-colors">
+                  <Link
+                    to="/"
+                    className="transition-colors hover:text-primary"
+                    style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+                  >
                     Home
                   </Link>
                 </li>
                 <li>
-                  <span className="text-gray-500 dark:text-gray-400"></span>
+                  <span className="text-gray-500 dark:text-gray-400">/</span>
                 </li>
                 <li>
-                  <Link to="/houses" className="text-text-light dark:text-text-dark hover:text-primary transition-colors">
+                  <Link
+                    to="/houses"
+                    className="transition-colors hover:text-primary"
+                    style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+                  >
                     Houses in Kenya
                   </Link>
                 </li>
                 <li>
-                  <span className="text-gray-500 dark:text-gray-400"></span>
+                  <span className="text-gray-500 dark:text-gray-400">/</span>
                 </li>
-                <li className="text-gray-500 dark:text-gray-400">Available</li>
+                <li style={{ color: isDarkMode ? '#9CA3AF' : '#4B5563' }}>
+                  Available
+                </li>
               </ol>
             </nav>
             <HouseFilter onSearch={setSearchTerm} onFilter={setFilters} />
@@ -105,6 +120,10 @@ const Houses = () => {
       <Footer />
     </div>
   );
+};
+
+Houses.propTypes = {
+  // No props are directly passed to Houses, but adding PropTypes for consistency
 };
 
 export default Houses;

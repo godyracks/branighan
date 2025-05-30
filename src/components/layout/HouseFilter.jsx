@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { SearchInput } from '../features/SearchInput';
-import PropTypes from 'prop-types'; 
+import { useTheme } from '../../context/ThemeContext';
 
 // HouseFilter handles search and filter inputs
 export const HouseFilter = ({ onSearch, onFilter }) => {
+  const { isDarkMode } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({ priceRange: '', location: '', category: '' });
 
@@ -27,7 +29,17 @@ export const HouseFilter = ({ onSearch, onFilter }) => {
         placeholderText="e.g., 1 bedroom cabin..."
       />
       <div className="flex flex-col sm:flex-row gap-4">
-        <select name="category" value={filters.category} onChange={handleFilterChange} className="border rounded-md py-2 px-3">
+        <select
+          name="category"
+          value={filters.category}
+          onChange={handleFilterChange}
+          className="border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+          style={{
+            borderColor: isDarkMode ? '#4B5563' : '#E5E7EB',
+            backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
+            color: isDarkMode ? '#F9FAFB' : '#1F2937',
+          }}
+        >
           <option value="">All Categories</option>
           <option value="Town home">Town home</option>
           <option value="Apartments">Apartments</option>
@@ -38,7 +50,17 @@ export const HouseFilter = ({ onSearch, onFilter }) => {
           <option value="Cottage">Cottage</option>
           <option value="Mobile homes">Mobile homes</option>
         </select>
-        <select name="priceRange" value={filters.priceRange} onChange={handleFilterChange} className="border rounded-md py-2 px-3">
+        <select
+          name="priceRange"
+          value={filters.priceRange}
+          onChange={handleFilterChange}
+          className="border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+          style={{
+            borderColor: isDarkMode ? '#4B5563' : '#E5E7EB',
+            backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
+            color: isDarkMode ? '#F9FAFB' : '#1F2937',
+          }}
+        >
           <option value="">All Prices</option>
           <option value="500000">0 - 500K</option>
           <option value="1000000">500K - 1M</option>
@@ -54,7 +76,12 @@ export const HouseFilter = ({ onSearch, onFilter }) => {
           value={filters.location}
           onChange={handleFilterChange}
           placeholder="Filter by location..."
-          className="border rounded-md py-2 px-3"
+          className="border rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
+          style={{
+            borderColor: isDarkMode ? '#4B5563' : '#E5E7EB',
+            backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
+            color: isDarkMode ? '#F9FAFB' : '#1F2937',
+          }}
         />
       </div>
     </div>
