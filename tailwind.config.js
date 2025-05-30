@@ -15,11 +15,11 @@ export default {
         'card-dark': '#374151',
         'text-light': '#1F2937',
         'text-dark': '#F9FAFB',
-        'border-light': '#E5E7EB',   
+        'border-light': '#E5E7EB',
         'border-dark': '#4B5563',
-        'accent-light': '#D4A373', 
-        'accent-dark': '#A66B4F', 
-        'accent-soft': '#E8C4A0', 
+        'accent-light': '#D4A373',
+        'accent-dark': '#A66B4F',
+        'accent-soft': '#E8C4A0',
       },
     },
     screens: {
@@ -33,4 +33,4 @@ export default {
   },
   plugins: [],
   darkMode: 'class',
-}
+};
