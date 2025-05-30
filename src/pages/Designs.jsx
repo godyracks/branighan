@@ -50,7 +50,7 @@ const Designs = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
        
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 mt-12">
           <div className="w-full lg:w-1/4 space-y-6">
             <nav className="text-sm text-text-light dark:text-text-dark" aria-label="Breadcrumb">
               <ol className="list-none p-0 flex space-x-2">

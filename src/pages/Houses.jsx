@@ -54,7 +54,7 @@ const Houses = () => {
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 mt-12">
        
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Sidebar (Search, Filters, Breadcrumb) */}
