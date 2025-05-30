@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { LucideX, LucideHome, LucideMoon, LucideSun } from 'lucide-react';
@@ -14,13 +15,16 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
     >
       <div className="flex flex-col h-full">
-        <div className="flex items-center justify-between p-4 border-b border-border-light dark:border-border-dark">
+        <div className="flex items-center justify-between p-4 border-b"
+          style={{ borderColor: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+        >
           <Link to="/" onClick={onClose}>
             <img src={logo} alt="Logo" className="h-8 w-auto" />
           </Link>
           <button
             onClick={onClose}
-            className={`p-2 ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
+            className="p-2"
+            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
             aria-label="Close navigation menu"
           >
             <LucideX className="h-6 w-6" />
@@ -30,7 +34,8 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
           <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
             <Link
               to="/"
-              className={`flex items-center text-base font-medium ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
+              className="flex items-center text-base font-medium"
+              style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
               onClick={onClose}
             >
               <LucideHome className="h-5 w-5 mr-2" />
@@ -41,7 +46,8 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
             <motion.div key={item.to} whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
               <Link
                 to={item.to}
-                className={`text-base font-medium ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
+                className="text-base font-medium"
+                style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
                 onClick={onClose}
               >
                 {item.label}
@@ -62,10 +68,16 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
             </Button>
           )}
         </div>
-        <div className="p-6 pt-0 border-t border-border-light dark:border-border-dark">
+        <div className="p-6 pt-0 border-t"
+          style={{ borderColor: isDarkMode ? '#4B5563' : '#E5E7EB' }}
+        >
           <button
             onClick={toggleTheme}
-            className={`flex items-center space-x-2 w-full p-2 rounded-md ${isDarkMode ? 'text-text-dark hover:bg-border-dark' : 'text-text-light hover:bg-border-light'}`}
+            className="flex items-center space-x-2 w-full p-2 rounded-md"
+            style={{
+              color: isDarkMode ? '#F9FAFB' : '#1F2937',
+              backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
+            }}
             aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {isDarkMode ? <LucideMoon className="h-5 w-5" /> : <LucideSun className="h-5 w-5" />}

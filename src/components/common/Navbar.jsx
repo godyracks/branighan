@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { LucideMenu, LucideX } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
@@ -6,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { DesktopNav } from '../Navbar/DesktopNav';
 import { MobileMenu } from '../Navbar/MobileMenu';
-import styles from '../Navbar/Navbar.module.css';
 
 // Default props
 const defaultNavItems = [
@@ -37,11 +37,11 @@ const Navbar = ({
     <nav
       className="py-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 fixed top-0 left-0 w-full z-50"
       style={{
-        backgroundColor: `var(--navbar-bg-${isDarkMode ? 'dark' : 'light'})`,
-        color: `var(--text-${isDarkMode ? 'dark' : 'light'})`,
+        backgroundColor: isDarkMode ? '#1F2937' : '#F9FAFB',
+        color: isDarkMode ? '#F9FAFB' : '#1F2937',
       }}
     >
-      <div className="flex items-center justify-between sm:justify-between">
+      <div className="flex items-center justify-between sm:justify-between max-w-7xl mx-auto">
         <Link to="/" className="flex items-center">
           <img src={logo} alt="Logo" className="h-8 w-auto sm:h-10" />
         </Link>
@@ -54,7 +54,8 @@ const Navbar = ({
         />
         <motion.button
           onClick={toggleMenu}
-          className={`p-2 sm:hidden ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
+          className="p-2 sm:hidden"
+          style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
           aria-label="Toggle navigation menu"
           whileHover={animations.hover}
         >

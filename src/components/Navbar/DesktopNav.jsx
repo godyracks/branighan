@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { LucideMoon, LucideSun } from 'lucide-react';
@@ -10,7 +11,8 @@ export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations, onSi
       <motion.div key={item.to} whileHover={animations.hover}>
         <Link
           to={item.to}
-          className={`text-base font-medium ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'} px-2 py-1 rounded-md`}
+          className="text-base font-medium px-2 py-1 rounded-md"
+          style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
         >
           {item.label}
         </Link>
@@ -30,7 +32,8 @@ export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations, onSi
     )}
     <motion.div
       onClick={toggleTheme}
-      className={`p-2 cursor-pointer ${isDarkMode ? 'text-text-dark hover:text-secondary' : 'text-text-light hover:text-primary'}`}
+      className="p-2 cursor-pointer"
+      style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
       whileHover={{ scale: 1.1 }}
       transition={{ duration: 0.2 }}
@@ -41,7 +44,7 @@ export const DesktopNav = ({ navItems, isDarkMode, toggleTheme, animations, onSi
 );
 
 DesktopNav.propTypes = {
-  navItems : PropTypes.arrayOf(
+  navItems: PropTypes.arrayOf(
     PropTypes.shape({
       to: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
