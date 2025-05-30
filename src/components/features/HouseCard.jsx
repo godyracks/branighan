@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { Phone } from 'lucide-react';
+import { Phone, Shield, Waves } from 'lucide-react';
 import { FaWhatsapp, FaBed, FaBath, FaCar } from 'react-icons/fa';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -9,7 +9,7 @@ export const HouseCard = ({ image, title, location, price, amenities, onWhatsApp
   const { isDarkMode } = useTheme();
 
   const whatsappHover = {
-    whileHover: { scale: 1.05, backgroundColor: '#16A34A' }, // Green-600
+    whileHover: { scale: 1.05, backgroundColor: '#16A34A' },
     transition: { duration: 0.2 },
   };
 
@@ -21,9 +21,7 @@ export const HouseCard = ({ image, title, location, price, amenities, onWhatsApp
   return (
     <motion.div
       className="border border-border-light dark:border-border-dark rounded-lg shadow-md overflow-hidden transition-all duration-300"
-      style={{
-        backgroundColor: isDarkMode ? '#374151' : '#FFFFFF',
-      }}
+      style={{ backgroundColor: isDarkMode ? '#374151' : '#FFFFFF' }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
@@ -48,31 +46,55 @@ export const HouseCard = ({ image, title, location, price, amenities, onWhatsApp
         >
           KSh {price.toLocaleString()}
         </p>
-        <div className="flex space-x-2 mt-2">
+        <div className="flex flex-wrap gap-2 mt-2 text-sm">
           <span
-            className="flex items-center"
-            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+            className="flex items-center gap-1"
+            style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
           >
-            <FaBed />{amenities.beds}
+            <FaBed /> {amenities.beds}
           </span>
           <span
-            className="flex items-center"
-            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+            className="flex items-center gap-1"
+            style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
           >
-            <FaBath />{amenities.baths}
+            <FaBath /> {amenities.baths}
           </span>
           <span
-            className="flex items-center"
-            style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+            className="flex items-center gap-1"
+            style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
           >
-            <FaCar />{amenities.garages}
+            <FaCar /> {amenities.garages}
           </span>
+          {amenities.garage && (
+            <span
+              className="flex items-center gap-1"
+              style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
+            >
+              <FaCar /> Garage
+            </span>
+          )}
+          {amenities.security && (
+            <span
+              className="flex items-center gap-1"
+              style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
+            >
+              <Shield className="h-4 w-4" /> Fenced
+            </span>
+          )}
+          {amenities.pool && (
+            <span
+              className="flex items-center gap-1"
+              style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
+            >
+              <Waves className="h-4 w-4" /> Pool
+            </span>
+          )}
         </div>
         <div className="mt-4 flex space-x-2">
           <motion.button
             onClick={onWhatsApp}
             className="flex-1 text-white py-2 px-2 rounded transition-colors"
-            style={{ backgroundColor: '#22C55E' }} // Green-500
+            style={{ backgroundColor: '#22C55E' }}
             aria-label={`Enquire about ${title} via WhatsApp`}
             {...whatsappHover}
           >
@@ -102,6 +124,9 @@ HouseCard.propTypes = {
     beds: PropTypes.number.isRequired,
     baths: PropTypes.number.isRequired,
     garages: PropTypes.number.isRequired,
+    garage: PropTypes.bool,
+    security: PropTypes.bool,
+    pool: PropTypes.bool,
   }).isRequired,
   onWhatsApp: PropTypes.func.isRequired,
   onCall: PropTypes.func.isRequired,
