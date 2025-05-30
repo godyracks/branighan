@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { Phone, Shield } from 'lucide-react';
+import { Phone, Shield, Waves, Warehouse } from 'lucide-react';
 import { FaWhatsapp, FaBed, FaBath, FaCar } from 'react-icons/fa';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -20,14 +20,14 @@ export const DesignCard = ({ image, name, category, amenities, onWhatsApp, onCal
 
   return (
     <motion.div
-      className="border border-border-light dark:border-border-dark rounded-lg shadow-md overflow-hidden transition-all duration-300"
+      className="rounded-lg shadow-md overflow-hidden transition-all duration-300"
       style={{ backgroundColor: isDarkMode ? '#374151' : '#FFFFFF' }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
     >
       <img src={image} alt={name} className="w-full h-48 object-cover aspect-[4/3]" />
-      <div className="p-4 flex flex-col min-h-[calc(100%-12rem)]">
+      <div className="p-4 flex flex-col h-[calc(100%-12rem)]">
         <h3
           className="text-lg font-semibold truncate"
           style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
@@ -35,51 +35,41 @@ export const DesignCard = ({ image, name, category, amenities, onWhatsApp, onCal
           {name}
         </h3>
         <p
-          className="text-sm text-gray-600 dark:text-gray-400"
+          className="text-sm truncate"
           style={{ color: isDarkMode ? '#9CA3AF' : '#4B5563' }}
         >
           {category}
         </p>
-        <div className="flex flex-wrap gap-2 mt-2 text-sm">
-          <span
-            className="flex items-center gap-1"
-            style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
-          >
+        <div className="flex space-x-2 items-center mt-2 text-sm truncate">
+          <span className="flex items-center space-x-1" style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}>
             <FaBed /> {amenities.beds}
           </span>
-          <span
-            className="flex items-center gap-1"
-            style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
-          >
+          <span className="flex items-center space-x-1" style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}>
             <FaBath /> {amenities.baths}
           </span>
-          <span
-            className="flex items-center gap-1"
-            style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
-          >
+          <span className="flex items-center space-x-1" style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}>
             <FaCar /> {amenities.garages}
           </span>
           {amenities.garage && (
-            <span
-              className="flex items-center gap-1"
-              style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
-            >
-              <FaCar /> Garage
+            <span className="flex items-center" style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}>
+              <Warehouse className="h-4 w-4" />
             </span>
           )}
           {amenities.security && (
-            <span
-              className="flex items-center gap-1"
-              style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}
-            >
-              <Shield className="h-4 w-4" /> Fenced
+            <span className="flex items-center" style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}>
+              <Shield className="h-4 w-4" />
+            </span>
+          )}
+          {amenities.pool && (
+            <span className="flex items-center" style={{ color: isDarkMode ? '#A66B4F' : '#D4A373' }}>
+              <Waves className="h-4 w-4" />
             </span>
           )}
         </div>
-        <div className="mt-4 flex space-x-2">
+        <div className="mt-auto flex space-x-2 pt-4">
           <motion.button
             onClick={onWhatsApp}
-            className="flex-1 text-white py-2 px-2 rounded transition-colors"
+            className="flex-1 text-white py-2 px-2 rounded transition-colors text-sm"
             style={{ backgroundColor: '#22C55E' }}
             aria-label={`Enquire about ${name} via WhatsApp`}
             {...whatsappHover}
@@ -88,7 +78,7 @@ export const DesignCard = ({ image, name, category, amenities, onWhatsApp, onCal
           </motion.button>
           <motion.button
             onClick={onCall}
-            className="flex-1 text-white py-2 px-2 rounded transition-colors"
+            className="flex-1 text-white py-2 px-2 rounded transition-colors text-sm"
             style={{ backgroundColor: isDarkMode ? '#FFFFFF' : '#000000', color: isDarkMode ? '#000000' : '#FFFFFF' }}
             aria-label={`Call about ${name}`}
             {...callHover}
@@ -111,6 +101,7 @@ DesignCard.propTypes = {
     garages: PropTypes.number.isRequired,
     garage: PropTypes.bool,
     security: PropTypes.bool,
+    pool: PropTypes.bool,
   }).isRequired,
   onWhatsApp: PropTypes.func.isRequired,
   onCall: PropTypes.func.isRequired,
