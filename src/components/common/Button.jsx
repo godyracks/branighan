@@ -21,7 +21,7 @@ const Button = forwardRef(
     const [isAnimating, setIsAnimating] = useState(false)
 
     const baseStyles =
-      'flex items-center justify-center rounded-[24px] font-medium cursor-pointer transition-all duration-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2'
+      'flex items-center justify-center rounded-md font-medium cursor-pointer transition-all duration-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2'
 
     const disabledStyles = 'disabled:opacity-60 disabled:cursor-not-allowed'
 
