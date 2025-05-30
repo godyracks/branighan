@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { DesktopNav } from '../Navbar/DesktopNav';
 import { MobileMenu } from '../Navbar/MobileMenu';
+import logoLight from '../../assets/images/lightmode.png';
+import logoDark from '../../assets/images/darkmode.png';
 
 // Default props
 const defaultNavItems = [
@@ -20,8 +22,6 @@ const defaultNavItems = [
 
 const Navbar = ({
   navItems = defaultNavItems,
-  logoLight = '../../assets/images/lightmode.png',
-  logoDark = '/path/to/darkmode.png',
   onSignIn,
 }) => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -31,7 +31,6 @@ const Navbar = ({
   };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const logo = isDarkMode ? logoDark : logoLight;
 
   return (
     <nav
@@ -43,7 +42,7 @@ const Navbar = ({
     >
       <div className="flex items-center justify-between sm:justify-between max-w-7xl mx-auto">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Logo" className="h-8 w-auto sm:h-10" />
+          <img src={isDarkMode ? logoDark : logoLight} alt="Logo" className="h-8 w-auto sm:h-10" />
         </Link>
         <DesktopNav
           navItems={navItems}
@@ -71,7 +70,6 @@ const Navbar = ({
             navItems={navItems}
             isDarkMode={isDarkMode}
             toggleTheme={toggleTheme}
-            logo={logo}
             onSignIn={onSignIn}
             showSignIn={!!onSignIn}
             animations={animations}
@@ -89,8 +87,6 @@ Navbar.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
-  logoLight: PropTypes.string.isRequired,
-  logoDark: PropTypes.string.isRequired,
   onSignIn: PropTypes.func,
 };
 

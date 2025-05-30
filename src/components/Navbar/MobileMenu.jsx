@@ -1,11 +1,13 @@
 
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { LucideX, LucideHome, LucideMoon, LucideSun } from 'lucide-react';
+import { LucideX, LucideHome, LucideMoon, LucideSun, LucideBuilding, LucidePenTool, LucideInfo, LucidePhone, LucideFileText, LucideHelpCircle } from 'lucide-react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
+import logoLight from '../../assets/images/lightmode.png';
+import logoDark from '../../assets/images/darkmode.png';
 
-export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme, logo, onSignIn, showSignIn, animations }) => (
+export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme, showSignIn, onSignIn, animations }) => (
   <>
     <motion.div
       className="fixed inset-y-0 right-0 w-4/5 max-w-xs shadow-xl z-50"
@@ -19,7 +21,7 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
           style={{ borderColor: isDarkMode ? '#4B5563' : '#E5E7EB' }}
         >
           <Link to="/" onClick={onClose}>
-            <img src={logo} alt="Logo" className="h-8 w-auto" />
+            <img src={isDarkMode ? logoDark : logoLight} alt="Logo" className="h-8 w-auto" />
           </Link>
           <button
             onClick={onClose}
@@ -42,18 +44,29 @@ export const MobileMenu = ({ isOpen, onClose, navItems, isDarkMode, toggleTheme,
               Home
             </Link>
           </motion.div>
-          {navItems.map((item) => (
-            <motion.div key={item.to} whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-              <Link
-                to={item.to}
-                className="text-base font-medium"
-                style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
-                onClick={onClose}
-              >
-                {item.label}
-              </Link>
-            </motion.div>
-          ))}
+          {navItems.map((item) => {
+            const Icon = {
+              'Houses in Kenya': LucideBuilding,
+              'Designs': LucidePenTool,
+              'About': LucideInfo,
+              'Contact': LucidePhone,
+              'Blog': LucideFileText,
+              'FAQs': LucideHelpCircle,
+            }[item.label] || LucideHome;
+            return (
+              <motion.div key={item.to} whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                <Link
+                  to={item.to}
+                  className="flex items-center text-base font-medium"
+                  style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
+                  onClick={onClose}
+                >
+                  <Icon className="h-5 w-5 mr-2" />
+                  {item.label}
+                </Link>
+              </motion.div>
+            );
+          })}
           {showSignIn && (
             <Button
               variant="primary"
@@ -110,8 +123,7 @@ MobileMenu.propTypes = {
   ).isRequired,
   isDarkMode: PropTypes.bool.isRequired,
   toggleTheme: PropTypes.func.isRequired,
-  logo: PropTypes.string.isRequired,
-  onSignIn: PropTypes.func,
   showSignIn: PropTypes.bool.isRequired,
+  onSignIn: PropTypes.func,
   animations: PropTypes.object.isRequired,
 };
