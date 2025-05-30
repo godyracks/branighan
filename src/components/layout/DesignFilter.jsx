@@ -56,7 +56,11 @@ export const DesignFilter = ({ onSearch, onFilter }) => {
                 size="sm"
                 isSelected={filters.category === category}
                 onClick={() => handleFilterChange('category', category)}
-                className={filters.category === category ? (isDarkMode ? 'bg-accent-dark text-text-dark' : 'bg-accent-light text-text-light') : ''}
+                className={
+                  isDarkMode
+                    ? `text-[#F5F5F5] ${filters.category === category ? 'bg-accent-dark' : ''}`
+                    : `text-black ${filters.category === category ? 'bg-accent-light' : ''}`
+                }
               >
                 {category}
               </Button>
@@ -75,7 +79,11 @@ export const DesignFilter = ({ onSearch, onFilter }) => {
                 size="sm"
                 isSelected={filters.priceRange === range.value}
                 onClick={() => handleFilterChange('priceRange', range.value)}
-                className={filters.priceRange === range.value ? (isDarkMode ? 'bg-accent-dark text-text-dark' : 'bg-accent-light text-text-light') : ''}
+                className={
+                  isDarkMode
+                    ? `text-[#F5F5F5] ${filters.priceRange === range.value ? 'bg-accent-dark' : ''}`
+                    : `text-black ${filters.priceRange === range.value ? 'bg-accent-light' : ''}`
+                }
               >
                 {range.label}
               </Button>
