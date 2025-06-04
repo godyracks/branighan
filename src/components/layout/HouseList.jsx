@@ -24,28 +24,53 @@ export const HouseList = ({ houses, currentPage, totalPages, onPageChange, onWha
           />
         ))}
       </div>
-      <div className="mt-8 flex justify-center space-x-4">
+      <div className="mt-8 flex justify-center space-x-2">
         <motion.button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-2 rounded-full text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
-          style={{ backgroundColor: currentPage === 1 ? '#D1D5DB' : '#1E40AF' }}
-          whileHover={{ scale: 1.05 }}
+          className={`w-10 h-10 flex items-center justify-center border-2 transition-colors ${
+            currentPage === 1
+              ? 'border-gray-300 text-gray-300 cursor-not-allowed'
+              : isDarkMode
+                ? 'border-white text-white hover:bg-white hover:text-black'
+                : 'border-black text-black hover:bg-black hover:text-white'
+          }`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2 }}
         >
           <LucideChevronLeft className="h-5 w-5" />
         </motion.button>
-        <span
-          style={{ color: isDarkMode ? '#F9FAFB' : '#1F2937' }}
-        >
-          {currentPage} / {totalPages}
-        </span>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <motion.button
+            key={page}
+            onClick={() => onPageChange(page)}
+            className={`w-10 h-10 flex items-center justify-center border-2 transition-colors ${
+              currentPage === page
+                ? 'bg-[#D4A373] text-white border-[#D4A373]'
+                : isDarkMode
+                  ? 'border-white text-white hover:bg-white hover:text-black'
+                  : 'border-black text-black hover:bg-black hover:text-white'
+            }`}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            {page}
+          </motion.button>
+        ))}
         <motion.button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="p-2 rounded-full text-white disabled:bg-gray-300 disabled:cursor-not-allowed"
-          style={{ backgroundColor: currentPage === totalPages ? '#D1D5DB' : '#1E40AF' }}
-          whileHover={{ scale: 1.05 }}
+          className={`w-10 h-10 flex items-center justify-center border-2 transition-colors ${
+            currentPage === totalPages
+              ? 'border-gray-300 text-gray-300 cursor-not-allowed'
+              : isDarkMode
+                ? 'border-white text-white hover:bg-white hover:text-black'
+                : 'border-black text-black hover:bg-black hover:text-white'
+          }`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2 }}
         >
           <LucideChevronRight className="h-5 w-5" />
