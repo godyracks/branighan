@@ -16,7 +16,7 @@ const Blog = () => {
 
   const latestArticles = [
     { id: 1, title: 'Transforming Your Space: Top 10 Interior Design Trends for Modern Homes', date: 'Mar 02 2025', image: 'https://i.pinimg.com/736x/e6/cb/c6/e6cbc604721f139f9067dfd63ceaf886.jpg', content: 'Explore the latest trends...' },
-    { id: 2, title: 'Navigating the Market: Essential Tips for First-Time Home Buyers', date: 'Mar 01 2025', image: 'https://i.pinimg.com/736x/e6/cb/c6/e6cbc604721f139f9067dfd63ceaf886.jpg', content: 'Key advice for new buyers...' },
+    { id: 2, title: 'Navigating the Market: Essential Tips for First-Time Home Buyers', date: 'Mar 01 2025', image: 'https://i.pinimg.com/736x/99/0f/c7/990fc7a568ad1fde0dcd8ea5a087eac8.jpg', content: 'Key advice for new buyers...' },
   ]
 
   const topPicks = [

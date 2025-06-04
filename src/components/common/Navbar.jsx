@@ -14,9 +14,9 @@ import logoDark from '../../assets/images/darkmode.png';
 const defaultNavItems = [
   { to: '/houses', label: 'Houses in Kenya' },
   { to: '/designs', label: 'Designs' },
+  { to: '/blog', label: 'Blog' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
-  { to: '/blog', label: 'Blog' },
   { to: '/faqs', label: 'FAQs' },
 ];
 
